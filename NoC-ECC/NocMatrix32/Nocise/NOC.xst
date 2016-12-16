@@ -1,0 +1,5 @@
+set -tmpdir "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Nocise/xst/projnav.tmp"
+set -xsthdpdir "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Nocise/xst"
+elaborate
+-ifn NOC.prj
+-ifmt mixed
