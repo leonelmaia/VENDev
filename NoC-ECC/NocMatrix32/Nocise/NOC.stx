@@ -1,0 +1,126 @@
+Release 14.5 - xst P.58f (nt64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Nocise/xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.13 secs
+ 
+--> Parameter xsthdpdir set to C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Nocise/xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.13 secs
+ 
+--> WARNING:Xst:3164 - Option "-debug" found multiple times in the command line. Only the first occurence is considered.
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Thor_package.vhd" in Library work.
+Package <ThorPackage> compiled.
+Package body <ThorPackage> compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Table_package.vhd" in Library work.
+Package <TablePackage> compiled.
+Package body <TablePackage> compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Thor_RM.vhd" in Library work.
+Entity <routingMechanism> compiled.
+Entity <routingMechanism> (Architecture <behavior>) compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Encoder.vhd" in Library work.
+Entity <Encoder> compiled.
+Entity <Encoder> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Thor_buffer.vhd" in Library work.
+Entity <Thor_buffer> compiled.
+Entity <Thor_buffer> (Architecture <Thor_buffer>) compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Decoder.vhd" in Library work.
+Entity <Decoder> compiled.
+Entity <Decoder> (Architecture <Behavioral>) compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Thor_switchcontrol.vhd" in Library work.
+Entity <SwitchControl> compiled.
+Entity <SwitchControl> (Architecture <RoutingTable>) compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/Thor_crossbar.vhd" in Library work.
+Entity <Thor_crossbar> compiled.
+Entity <Thor_crossbar> (Architecture <Thor_crossbar>) compiled.
+Compiling vhdl file "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" in Library work.
+ERROR:HDLParsers:1305 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 50. Index name TAB is not static.
+ERROR:HDLParsers:3010 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 64. Entity RouterCC does not exist.
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 66. Undefined symbol 'regNport'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 66. regNport: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 67. Undefined symbol 'arrayNport_regflit'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 67. arrayNport_regflit: Undefined symbol (last report in this block)
+ERROR:HDLParsers:842 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 67. The type of the element in aggregate does not correspond to any array type.
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 68. Undefined symbol 'arrayNport_reg3'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 68. arrayNport_reg3: Undefined symbol (last report in this block)
+ERROR:HDLParsers:842 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 68. The type of the element in aggregate does not correspond to any array type.
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 70. Undefined symbol 'arrayNport_encodedregflit'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 70. arrayNport_encodedregflit: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 77. Undefined symbol 'EAST'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 77. EAST: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 77. Undefined symbol 'LOCAL'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 77. LOCAL: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 81. Undefined symbol 'data_in'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 81. data_in: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 81. Undefined symbol 'i'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 81. i: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 82. Undefined symbol 'dataEncoded'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 82. dataEncoded: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3324 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 79. IN mode Formal data_in of entity with no default value must be associated with an actual value.
+ERROR:HDLParsers:3313 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 86. Undefined symbol 'clock'.  Should it be: block?
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 86. clock: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 87. Undefined symbol 'reset'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 87. reset: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 89. Undefined symbol 'rx'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 89. rx: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 90. Undefined symbol 'h'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 90. h: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 91. Undefined symbol 'ack_h'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 91. ack_h: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 92. Undefined symbol 'data_av'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 92. data_av: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 93. Undefined symbol 'databuffEncoded'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 93. databuffEncoded: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 94. Undefined symbol 'sender'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 94. sender: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 95. Undefined symbol 'clock_rx'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 95. clock_rx: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 96. Undefined symbol 'data_ack'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 96. data_ack: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 97. Undefined symbol 'credit_o'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 97. credit_o: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3324 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 84. IN mode Formal clock of entity with no default value must be associated with an actual value.
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 102. Undefined symbol 'data'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 102. data: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3324 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 99. IN mode Formal data_in of entity with no default value must be associated with an actual value.
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 104. Undefined symbol 'clock_tx'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 104. clock_tx: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 109. Undefined symbol 'address'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 109. address: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 110. Undefined symbol 'ramInit'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 110. ramInit: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 118. Undefined symbol 'free'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 118. free: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 119. Undefined symbol 'mux_in'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 119. mux_in: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 120. Undefined symbol 'mux_out'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 120. mux_out: Undefined symbol (last report in this block)
+ERROR:HDLParsers:851 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 107. Formal ramInit of Entity with no default value must be associated with an actual value.
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 131. Undefined symbol 'tx'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 131. tx: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 132. Undefined symbol 'data_out'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 132. data_out: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3312 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 133. Undefined symbol 'credit_i'.
+ERROR:HDLParsers:1209 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 133. credit_i: Undefined symbol (last report in this block)
+ERROR:HDLParsers:3324 - "C:/Users/usuario/Desktop/NoCThor-develop/Arquivos em VHDL/NocMatrix32/RouterCC.vhd" Line 122. IN mode Formal data_av of Entity with no default value must be associated with an actual value.
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.30 secs
+ 
+--> 
+
+Total memory usage is 215404 kilobytes
+
+Number of errors   :   69 (   0 filtered)
+Number of warnings :    1 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
+
