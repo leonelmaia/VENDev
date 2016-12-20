@@ -37,6 +37,9 @@ public class venIDE extends JFrame {
 	private JTextField txtTamanhoDoBuffer;
 	private JTextField txtTamanhoDoFlit;
 	private JTextField txtProteo;
+	private JTextField textX;
+	private JTextField textY;
+	private JTextField textDummy;
 	
 
 	/**
@@ -69,14 +72,14 @@ public class venIDE extends JFrame {
 		
 		txtTopologia = new JTextField();
 		txtTopologia.setEditable(false);
-		txtTopologia.setText("Topologia :");
+		txtTopologia.setText("Topology:");
 		txtTopologia.setBounds(10, 11, 116, 20);
 		contentPane.add(txtTopologia);
 		txtTopologia.setColumns(10);
 		
 		txtTamanhoDoBuffer = new JTextField();
 		txtTamanhoDoBuffer.setEditable(false);
-		txtTamanhoDoBuffer.setText("Tamanho do buffer :");
+		txtTamanhoDoBuffer.setText("Buffer Size");
 		txtTamanhoDoBuffer.setBounds(10, 59, 116, 20);
 		contentPane.add(txtTamanhoDoBuffer);
 		txtTamanhoDoBuffer.setColumns(10);
@@ -85,23 +88,17 @@ public class venIDE extends JFrame {
 		
 		txtTamanhoDoFlit = new JTextField();
 		txtTamanhoDoFlit.setEditable(false);
-		txtTamanhoDoFlit.setText("Tamanho do flit :");
-		txtTamanhoDoFlit.setBounds(10, 112, 116, 20);
+		txtTamanhoDoFlit.setText("Flit Size:");
+		txtTamanhoDoFlit.setBounds(10, 107, 116, 20);
 		contentPane.add(txtTamanhoDoFlit);
 		txtTamanhoDoFlit.setColumns(10);
 		
 		txtProteo = new JTextField();
 		txtProteo.setEditable(false);
-		txtProteo.setText("Prote\u00E7\u00E3o :");
+		txtProteo.setText("Protection:");
 		txtProteo.setBounds(10, 167, 116, 20);
 		contentPane.add(txtProteo);
 		txtProteo.setColumns(10);
-		
-		// TOPOLOGIA
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"2x2", "3x3", "4x4"}));
-		comboBox.setBounds(195, 11, 134, 20);
-		contentPane.add(comboBox);
 		
 		//BUFFER
 		JComboBox comboBox_1 = new JComboBox();
@@ -112,26 +109,48 @@ public class venIDE extends JFrame {
 		//FLIT
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"16", "32", "64"}));
-		comboBox_2.setBounds(195, 112, 143, 20);
+		comboBox_2.setBounds(195, 107, 143, 20);
 		contentPane.add(comboBox_2);
 		
-		JButton btnGerarNoc = new JButton("Gerar Noc");
+		//DIMENSION X
+		textX = new JTextField();
+		textX.setBounds(195, 11, 46, 20);
+		contentPane.add(textX);
+		textX.setColumns(10);
+		
+		//DIMENSION Y
+		textY = new JTextField();
+		textY.setBounds(292, 11, 46, 20);
+		contentPane.add(textY);
+		textY.setColumns(10);
+		
+		JButton btnGerarNoc = new JButton("Create NoC");
 		btnGerarNoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				createVHD(comboBox , comboBox_1 ,comboBox_2);
+				createVHD(textX.getText()+"x"+textY.getText() , (String) comboBox_1.getSelectedItem() , (String) comboBox_2.getSelectedItem());
 				JOptionPane.showMessageDialog(null,"ThorPackage.vhd Criado com sucesso!!");
 			}
 		});
-		btnGerarNoc.setBounds(169, 227, 89, 23);
+		btnGerarNoc.setBounds(160, 227, 109, 23);
 		contentPane.add(btnGerarNoc);
+		
+		
+		//DUMMY
+		//USED ONLY FOR DESIGN
+		textDummy = new JTextField();
+		textDummy.setText("X");
+		textDummy.setEditable(false);
+		textDummy.setBounds(251, 11, 32, 20);
+		contentPane.add(textDummy);
+		textDummy.setColumns(10);
 	}
 	
-	private void createVHD(JComboBox comboBox , JComboBox comboBox_1, JComboBox comboBox_2){
+	private void createVHD(String topologia , String buffer , String flit){
 		String fileName = "Thor_package.vhd";
 		try {
 			File routingTable = new File(fileName);
             BufferedWriter bw = new BufferedWriter(new FileWriter(routingTable));
-            writeRoutingTable(bw,comboBox , comboBox_1 ,comboBox_2);
+            writeRoutingTable(bw, topologia , buffer , flit);
             bw.flush();
             bw.close();
         } catch (IOException e) {
@@ -139,9 +158,9 @@ public class venIDE extends JFrame {
         }
 	}
 	
-    private void writeRoutingTable(BufferedWriter bw, JComboBox comboBox , JComboBox comboBox_1, JComboBox comboBox_2) throws IOException {
+    private void writeRoutingTable(BufferedWriter bw, String topologia , String buffer , String flit) throws IOException {
     	writeRoutingTableHeader(bw);
-        writeRoutingTableBody(bw,comboBox , comboBox_1 ,comboBox_2);
+        writeRoutingTableBody(bw,topologia , buffer ,flit);
         writeRoutingTableTail(bw);
     }
 
@@ -160,10 +179,7 @@ public class venIDE extends JFrame {
         		);
     }
 
-    private void writeRoutingTableBody(BufferedWriter bw , JComboBox comboBox , JComboBox comboBox_1, JComboBox comboBox_2) throws IOException {
-    	String topologia = comboBox.getSelectedItem().toString();
-    	String buffer = comboBox_1.getSelectedItem().toString();	
-    	String flit = comboBox_2.getSelectedItem().toString();
+    private void writeRoutingTableBody(BufferedWriter bw , String topologia , String buffer , String flit) throws IOException {
     	int dim_x = Integer.valueOf(topologia.split("x")[0]);
 		int dim_y = Integer.valueOf(topologia.split("x")[1]);
     	bw.append("-- CONSTANTS RELATED TO THE NETWORK BANDWIDTH ------------------\n "
