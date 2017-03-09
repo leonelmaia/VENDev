@@ -25,8 +25,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 
 entity Decoder is
+	generic( leng : integer );
 	port(
-	    	data_in: in std_logic_vector(0 to 39);
+			data_in: in std_logic_vector(0 to leng);
 			data_out: out std_logic_vector(0 to 15);
 			--vscb: out std_logic_vector(0 to 5);
 			data_2er: out std_logic_vector(0 to 1)
@@ -56,7 +57,7 @@ begin
 			data_2er <= "01";
 			--vscb <= scb;
 		else
-			case (scb) is
+			case scb is
 				when "110001" => scb0(0):=not scb0(0);
 				when "101001" => scb0(1):=not scb0(1);
 				when "011001" => scb0(2):=not scb0(2);
@@ -85,97 +86,9 @@ begin
 	
 end hamming;
 
-architecture clc of Decoder is
-type arraysignal is array(0 to 4) of std_logic_vector(0 to 7);
-type arraylinsin is array(0 to 4) of std_logic_vector(0 to 2);
-begin 
-	process (data_in)
-	variable signals : arraysignal;
-	variable linsin : arraylinsin;
-	variable colsin : std_logic_vector( 0  to 7);
-	variable spl : std_logic_vector(0 to 4);
-	variable j : INTEGER range 0 to 7;
-	variable a : INTEGER range 0 to 4;
-	variable numlinsin : INTEGER range 0 to 4;
-	begin		
-	-----------------------------------------cálculo de síndromes--------------------------------------
-		numlinsin := 0;
-		for j in 0 to 7 loop
-			signals(0)(j):= data_in(j);
-			signals(1)(j):= data_in(j+8);
-			signals(2)(j):= data_in(j+16);
-			signals(3)(j):= data_in(j+24);
-			signals(4)(j):= data_in(j+32);
-			colsin(j) := ( ( ( ( signals(0)(j) xor signals(1)(j) )  xor signals(2)(j) )  xor signals(3)(j) )  xor signals(4)(j) ) ;
-		end loop;
-		for j in 0 to 4 loop
-			linsin(j)(0) := ( ( ( signals(j)(4 ) xor signals(j)(1 ) )  xor signals(j)(2 ) )  xor signals(j)(3 ) ) ;
-			linsin(j)(1) := ( ( ( signals(j)(5 ) xor signals(j)(0 ) )  xor signals(j)(2 ) )  xor signals(j)(3 ) ) ;
-			linsin(j)(2) := ( ( ( signals(j)(6 ) xor signals(j)(0 ) )  xor signals(j)(1 ) )  xor signals(j)(3 ) ) ;
-			spl(j) := ( ( ( ( ( ( signals(j)(1 ) xor signals(j)(2 ) )  xor signals(j)(7 ) )  xor signals(j)(3 ) )  xor signals(j)(6 ) )  xor signals(j)(5 ) )  xor signals(j)(4 ) xor signals(j)(0) ) ; 
-			if((linsin(j) /= "000") or (spl(j)/='0'))
-			then
-				numlinsin := numlinsin + 1;
-			end if;
-		end loop;
-		-------------------------------------correção de linhas---------------------------------
-		for a in 0 to 3 loop 
-			if  (linsin(a)(0 to 2)/="000") and(numlinsin=1)
-			then 
-			report "caso 3a"; -- caso impar 111 correção por sp bits 
-				for j in 0 to 7 loop
-						if ( ( colsin(j) /= '0' )  ) then 
-							 signals(a)(j) := (  not signals(a)(j) ) ;
-						end if;
-				end loop;
-			end if;
-			if (linsin(a)(0 to 2)="000") and(spl(a)='1')
-			then 
-			report "caso 3a"; -- caso impar 111 correção por sp bits 
-				for j in 0 to 7 loop
-						if ( ( colsin(j) /= '0' )  ) then 
-							 signals(a)(j) := (  not signals(a)(j) ) ;
-						end if;
-				end loop;
-			end if;			
-			if ( linsin(a)  /= "000"  ) 
-			then
-				if (spl(a)= '0' )
-				then
-					for j in 0 to 7 loop
-						if  ( colsin(j) = '1' ) then 
-							 signals(a)(j) :=   not signals(a)(j)  ;
-						end if;
-					end loop;
-				end if;
-				if(spl(a)='1')
-				then
-					case (linsin(a)) is 
-						 when "111"  => 
-							  signals(a)(3 ) := (  not signals(a)(3 ) ) ;
-						 when "110"  => 
-							  signals(a)(2 ) := (  not signals(a)(2 ) ) ;
-						 when "101"  => 
-							  signals(a)(1 ) := (  not signals(a)(1 ) ) ;
-						 when "100"  => 
-							  signals(a)(4 ) := (  not signals(a)(4 ) ) ;
-						 when "011"  => 
-							  signals(a)(0 ) := (  not signals(a)(0 ) ) ;
-						 when "010"  => 
-							  signals(a)(5 ) := (  not signals(a)(5 ) ) ;
-						 when "001"  => 
-							  signals(a)(6 ) := (  not signals(a)(6 ) ) ;
-						 when  others  => 
-							  signals(a) := signals(a);
-					end case;
-				end if;
-			end if;
-		end loop;
-	data_out <= signals(0)(0 to 3) & signals(1)(0 to 3) & signals(2)(0 to 3) & signals(3)(0 to 3) ;
-	end process;
-end clc;
 
-architecture  matrix of Decoder is
+
+architecture Matrix of Decoder is
 
 begin
 	process(data_in) 
@@ -191,11 +104,10 @@ begin
 		variable vetlinsin: std_logic_vector(0 to 7);
 		variable colsin : std_logic_vector(0 to 3);
 		variable colsin2 : std_logic_vector(0 to 3);		
-		variable j : INTEGER range 0 to 2;
-		variable numcolsin : INTEGER range 0 to 2;
-		variable numlinsin : INTEGER range 0 to 2;
+		variable j : INTEGER range 0 to 8;
+		variable numcolsin : INTEGER range 0 to 4;
+		variable numlinsin : INTEGER range 0 to 4;
 		variable a : std_logic;
-		variable b : INTEGER;
 		variable numcolsin2: INTEGER RANGE 0 TO 7;
 		variable erroparidade: INTEGER RANGE 0 TO 2;
 		variable val: INTEGER RANGE 0 to 2;
@@ -214,6 +126,11 @@ begin
 			numlinsin := 0;
 			for j in 0 to 3 loop
 				colsin(j) := ( ( ( ( signal1(j) xor signal2(j) )  xor signal3(j) )  xor signal4(j) )  xor signal5(j) ) ;
+				if (colsin(j) /= '0')
+				then
+					numcolsin:= 1 + numcolsin;
+				end if;
+				
 			end loop;
 			linsin1(0) := ( ( ( signal1(4 ) xor signal1(1 ) )  xor signal1(2 ) )  xor signal1(3 ) ) ;
 			linsin1(1) := ( ( ( signal1(5 ) xor signal1(0 ) )  xor signal1(2 ) )  xor signal1(3 ) ) ;
@@ -231,12 +148,7 @@ begin
 			linsin4(1) := ( ( ( signal4(5 ) xor signal4(0 ) )  xor signal4(2 ) )  xor signal4(3 ) ) ;
 			linsin4(2) := ( ( ( signal4(6 ) xor signal4(0 ) )  xor signal4(1 ) )  xor signal4(3 ) ) ;
 			vetlinsin := "00000000";
-			for j in 0 to 3 loop
-				if (colsin(j) /= '0')
-				then
-					numcolsin:= 1 + numcolsin;
-				end if;
-			end loop;
+			
 			if(linsin1 /= "000")
 			then
 				vetlinsin(0):= '1';
@@ -257,12 +169,12 @@ begin
 				vetlinsin(3):= '1';
 				numlinsin := 1 + numlinsin;
 			end if;
-			--- Caso 1: Verificação se as sindromes são iguais a 0
+			--- Caso 1: VerificaÃ§Ã£o se as sindromes sÃ£o iguais a 0
 			if(numlinsin = 0 and numcolsin = 0)
 			then
 				data_out <=(signal1(0 to 3) & signal2(0 to 3) & signal3(0 to 3) & signal4(0 to 3)); 
 			end if;
-			--- Caso 2: ((numlinsin>1) and (numcolsin=0)) isso só será possível havendo erros simples em uma mesma coluna ou erros simples em colunas diferentes fora dos data bits 
+			--- Caso 2: ((numlinsin>1) and (numcolsin=0)) isso sÃ³ serÃ¡ possÃ­vel havendo erros simples em uma mesma coluna ou erros simples em colunas diferentes fora dos data bits 
 			if((numlinsin>1) and (numcolsin=0))
 			then
 			report "caso2";
@@ -270,7 +182,7 @@ begin
 				then
 					erroparidade := 0;
 					numcolsin2 :=0;
-					case(linsin1) is
+					case linsin1 is
 					when "111" =>
 						vetoroi:="0001000";
 					when "110" =>
@@ -289,7 +201,7 @@ begin
 				then
 					erroparidade := 0;
 					numcolsin2 :=0;
-					case(linsin2) is
+					case linsin2 is
 					when "111" =>
 						vetoroi:="0001000";
 					when "110" =>
@@ -308,7 +220,7 @@ begin
 				then
 					erroparidade := 0;
 					numcolsin2 :=0;
-					case(linsin3) is
+					case linsin3 is
 					when "111" =>
 						vetoroi:="0001000";
 					when "110" =>
@@ -327,7 +239,7 @@ begin
 				then
 					erroparidade := 0;
 					numcolsin2 :=0;
-					case(linsin4) is
+					case linsin4 is
 					when "111" =>
 						vetoroi:="0001000";
 					when "110" =>
@@ -344,7 +256,7 @@ begin
 				-----linha nova
 				-----linha nova			
 --			end if; --- fim do primeiro case	
-			--CASO 3.1((numcolsin = 1) and (numlinsin =0)) siginifica que não há erro nas linhas			
+			--CASO 3.1((numcolsin = 1) and (numlinsin =0)) siginifica que nÃ£o hÃ¡ erro nas linhas			
 			elsif((numlinsin=0) and (numcolsin>0))
 			then
 			data_out <=(signal1(0 to 3) & signal2(0 to 3) & signal3(0 to 3) & signal4(0 to 3)); 
@@ -358,7 +270,7 @@ begin
 					then
 						erroparidade := 0;
 						numcolsin2 :=0;
-						case(linsin4) is
+						case linsin4 is
 						when "111" =>
 							vetoroi:="0001000";
 						when "110" =>
@@ -371,7 +283,7 @@ begin
 							vetoroi:="0000000";
 						end case;
 						signal4 := vetoroi xor signal4;
-						for j in 0 to 3 loop -- análise caso seja erro duplo
+						for j in 0 to 3 loop -- anÃ¡lise caso seja erro duplo
 							colsin2(j) := ( ( ( ( signal1(j) xor signal2(j) )  xor signal3(j) )  xor signal4(j) )  xor signal5(j)) ;
 							if((vetoroi(j)='1')and(colsin2(j)='1'))
 							then
@@ -404,7 +316,7 @@ begin
 							signal4(0 to 3):= signal4(0 to 3) xor colsin(0 to 3);
 						end if;
 					end if;
-			--CASO 4 numsp>1 &&numsc==1 -> dois erros em uma linha.Corrige pelo método		
+			--CASO 4 numsp>1 &&numsc==1 -> dois erros em uma linha.Corrige pelo mÃ©todo		
 				elsif((numcolsin>1) and(numlinsin=1))
 				then
 				report "caso4";
@@ -412,7 +324,7 @@ begin
 					then
 						erroparidade := 0;
 						numcolsin2 :=0;
-						case(linsin4) is
+						case linsin4 is
 						when "111" =>
 							vetoroi:="0001000";
 						when "110" =>
@@ -425,7 +337,7 @@ begin
 							vetoroi:="0000000";
 						end case;
 						signal4 := vetoroi xor signal4;
-						for j in 0 to 3 loop -- análise caso seja erro duplo
+						for j in 0 to 3 loop -- anÃ¡lise caso seja erro duplo
 							colsin2(j) := ( ( ( ( signal1(j) xor signal2(j) )  xor signal3(j) )  xor signal4(j) )  xor signal5(j)) ;
 							if((vetoroi(j)='1')and(colsin2(j)='1'))
 							then
@@ -466,7 +378,7 @@ begin
 					then
 						erroparidade := 0;
 						numcolsin2 :=0;
-						case(linsin1) is
+						case linsin1 is
 						when "111" =>
 							vetoroi:="0001000";
 						when "110" =>
@@ -485,7 +397,7 @@ begin
 					then
 						erroparidade := 0;
 						numcolsin2 :=0;
-						case(linsin2) is
+						case linsin2 is
 						when "111" =>
 							vetoroi:="0001000";
 						when "110" =>
@@ -504,7 +416,7 @@ begin
 					then
 						erroparidade := 0;
 						numcolsin2 :=0;
-						case(linsin3) is
+						case linsin3 is
 						when "111" =>
 							vetoroi:="0001000";
 						when "110" =>
@@ -523,7 +435,7 @@ begin
 					then
 						erroparidade := 0;
 						numcolsin2 :=0;
-						case(linsin4) is
+						case linsin4 is
 						when "111" =>
 							vetoroi:="0001000";
 						when "110" =>
@@ -541,6 +453,99 @@ begin
 			end if;
 		data_out <=(signal1(0 to 3) & signal2(0 to 3) & signal3(0 to 3) & signal4(0 to 3)); 
 	end process;
-end matrix;
+end Matrix;
+
+
+architecture clc of Decoder is
+type arraysignal is array(0 to 4) of std_logic_vector(0 to 7);
+type arraylinsin is array(0 to 4) of std_logic_vector(0 to 2);
+signal linsinsignal : std_logic_vector(0 to 2);
+begin 
+	process (data_in)
+	variable signals : arraysignal;
+	variable linsin : arraylinsin;
+	variable colsin : std_logic_vector( 0  to 7);
+	variable spl : std_logic_vector(0 to 4);
+	variable j : INTEGER range 0 to 7;
+	variable a : INTEGER range 0 to 4;
+	variable numlinsin : INTEGER range 0 to 5;
+	begin		
+	-----------------------------------------cÃ¡lculo de sÃ­ndromes--------------------------------------
+		numlinsin := 0;
+		for j in 0 to 7 loop
+			signals(0)(j):= data_in(j);
+			signals(1)(j):= data_in(j+8);
+			signals(2)(j):= data_in(j+16);
+			signals(3)(j):= data_in(j+24);
+			signals(4)(j):= data_in(j+32);
+			colsin(j) := ( ( ( ( signals(0)(j) xor signals(1)(j) )  xor signals(2)(j) )  xor signals(3)(j) )  xor signals(4)(j) ) ;
+		end loop;
+		for j in 0 to 4 loop
+			linsin(j)(0) := ( ( ( signals(j)(4 ) xor signals(j)(1 ) )  xor signals(j)(2 ) )  xor signals(j)(3 ) ) ;
+			linsin(j)(1) := ( ( ( signals(j)(5 ) xor signals(j)(0 ) )  xor signals(j)(2 ) )  xor signals(j)(3 ) ) ;
+			linsin(j)(2) := ( ( ( signals(j)(6 ) xor signals(j)(0 ) )  xor signals(j)(1 ) )  xor signals(j)(3 ) ) ;
+			spl(j) := ( ( ( ( ( ( signals(j)(1 ) xor signals(j)(2 ) )  xor signals(j)(7 ) )  xor signals(j)(3 ) )  xor signals(j)(6 ) )  xor signals(j)(5 ) )  xor signals(j)(4 ) xor signals(j)(0) ) ; 
+			if((linsin(j) /= "000") or (spl(j)/='0'))
+			then
+				numlinsin := numlinsin + 1;
+			end if;
+		end loop;
+		-------------------------------------correÃ§Ã£o de linhas---------------------------------
+		for a in 0 to 3 loop 
+			if  (linsin(a)(0 to 2)/="000") and(numlinsin=1)
+			then 
+			report "caso 3a"; -- caso impar 111 correÃ§Ã£o por sp bits 
+				for j in 0 to 7 loop
+						if ( ( colsin(j) /= '0' )  ) then 
+							 signals(a)(j) := (  not signals(a)(j) ) ;
+						end if;
+				end loop;
+			end if;
+			if (linsin(a)(0 to 2)="000") and(spl(a)='1')
+			then 
+			report "caso 3a"; -- caso impar 111 correÃ§Ã£o por sp bits 
+				for j in 0 to 7 loop
+						if ( ( colsin(j) /= '0' )  ) then 
+							 signals(a)(j) := (  not signals(a)(j) ) ;
+						end if;
+				end loop;
+			end if;			
+			if ( linsin(a)  /= "000"  ) 
+			then
+				if (spl(a)= '0' )
+				then
+					for j in 0 to 7 loop
+						if  ( colsin(j) = '1' ) then 
+							 signals(a)(j) :=   not signals(a)(j)  ;
+						end if;
+					end loop;
+				end if;
+				if(spl(a)='1')
+				then
+				linsinSignal <= linsin(a);
+					case linsinSignal is 
+						 when "111"  => 
+							  signals(a)(3 ) := (  not signals(a)(3 ) ) ;
+						 when "110"  => 
+							  signals(a)(2 ) := (  not signals(a)(2 ) ) ;
+						 when "101"  => 
+							  signals(a)(1 ) := (  not signals(a)(1 ) ) ;
+						 when "100"  => 
+							  signals(a)(4 ) := (  not signals(a)(4 ) ) ;
+						 when "011"  => 
+							  signals(a)(0 ) := (  not signals(a)(0 ) ) ;
+						 when "010"  => 
+							  signals(a)(5 ) := (  not signals(a)(5 ) ) ;
+						 when "001"  => 
+							  signals(a)(6 ) := (  not signals(a)(6 ) ) ;
+						 when  others  => 
+							  signals(a) := signals(a);
+					end case;
+				end if;
+			end if;
+		end loop;
+	data_out <= signals(0)(0 to 3) & signals(1)(0 to 3) & signals(2)(0 to 3) & signals(3)(0 to 3) ;
+	end process;
+end clc;
 
 

@@ -1,3 +1,0 @@
-arquivo de teste
-a;b;c d e;;f
-   ;ghi;;;
